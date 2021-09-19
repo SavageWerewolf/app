@@ -38,7 +38,7 @@ const Home = () => {
   const web3 = new Web3(window.ethereum)
 
   const [blocking, setBlocking] = useState(false);
-  const [currenTime, setCurrentTime] = useState(new Date().getTime());
+  const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
   function updateTime() {
     setCurrentTime(new Date().getTime());
@@ -48,7 +48,6 @@ const Home = () => {
 
   useEffect(() => {
     loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
-
     web3.eth.getAccounts().then((accounts)=>{
       if(accounts.length>0){
         setAccount(accounts[0])
@@ -142,7 +141,6 @@ const Home = () => {
         console.log("qty: "+qty)
         setBlocking(true);
     
-    
         contract.methods.mintNFT(qty).send({from: account,value: payableAmount})
         .then((result: any) => {
           console.log("Success! Got result: " + JSON.stringify(result));
@@ -187,7 +185,8 @@ const Home = () => {
     if(availableToken==0){
       event.preventDefault();
     }else {
-      handleSubmit(event, mintToken, event.target.qty.value)
+      const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
+      handleSubmit(event, mintToken, redeemVoucher, contract)
     }
   }
 
@@ -198,9 +197,7 @@ const Home = () => {
   const ValidationType = ({ type }: ValidationTypeProps) => {
     const ErrorMessage = errors[type];
     return (
-      <Zoom direction="left">
         <Span erros={errors[type]}>{ErrorMessage}</Span>
-      </Zoom>
     );
   };
 
@@ -213,6 +210,8 @@ const Home = () => {
       {availableToken>0?
       <p>   
         Get a unqiue Werewolf at 0.05 ETH 
+        
+        <div className="mint-form">
          <Row justify="space-between" align="middle">
             <Col lg={12} md={11} sm={24} xs={24}>
               <Slide direction="left">
@@ -223,6 +222,7 @@ const Home = () => {
               value={values.qty}
               onChange={handleChange}
             ></Input>
+           
               </Slide>
             </Col>
             <Col lg={12} md={12} sm={24} xs={24}>
@@ -230,11 +230,26 @@ const Home = () => {
                 <Button >Start Minting</Button> 
               </Slide>
             </Col>
-          </Row>
+          </Row> 
+          </div>
+
+          {process.env.REACT_APP_PROMO=="true"?( <div className="mint-form promo-container">
+           <Slide direction="up">
+          <Input
+            type="text"
+            name="promo"
+            placeholder="Enter promo"
+            value={values.promo}
+            onChange={handleChange}
+          ></Input>
+          </Slide>
+          </div>):(<div className="mint-form promo-container">
+          </div>)}
+          
+            <ValidationType type="qty" />
         </p>
       : <Button>Sold Out</Button>}
       <Row justify="space-between" align="middle">
-      <ValidationType type="qty" />
       </Row>
      </FormGroup>
      </div>
@@ -286,7 +301,7 @@ const Home = () => {
 }
 
 
-const secondsLeft = (saleTime-currenTime)/1000;
+const secondsLeft = (saleTime-currentTime)/1000;
 const seconds =(secondsLeft)%60;
 const mins = ((secondsLeft - seconds)/60)%60;
 const hours = ((secondsLeft - seconds -(mins*60))/(60*60))%24;
@@ -321,7 +336,7 @@ const mintNFTComponent = (
           <img src="img/place_holder_example.png" width="200px"/>
           </p>
           
-          {(saleTime>currenTime)? 
+          {(saleTime>currentTime)? 
           (<div className="sale-timer"> Presale starts in <br/>{saleCountdown}</div>) 
            : 
            (<div className="mint-section">

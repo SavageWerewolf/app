@@ -61,13 +61,13 @@ export const Styles = createGlobalStyle`
 
     input,
     textarea {
-        border-radius: 4px;
+        border-radius: 3px;
         background: #ffffff77;
         color: #ffffff;
         transition: all 0.3s ease-in-out;  
         outline: none;
-        width: 190px;  
-        padding: 0.53rem 0.5rem;
+        width: 185px;  
+        padding: 0.48rem 0.44rem;
         border: 2px solid #edf3f5;
         border-radius: 100px;
         text-align: center;
@@ -249,6 +249,22 @@ export const Styles = createGlobalStyle`
             overflow: hidden;
         }
       /* end loading style*/
+
+      /********* mint form and promo code *********/
+
+      .mint-form{
+        width:100%;
+      }
+      .promo-container input {
+        width:445px;
+        min-width: 185px;
+        
+        @media only screen and (max-width: 750px) {
+          width: 185px;
+        }
+      
+      }
+       /********* promo code *********/
 
       /********* Timer style********/
       .timer {

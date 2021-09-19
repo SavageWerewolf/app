@@ -32,4 +32,5 @@ export interface InputProps {
 
 export interface validateProps {
   qty: string;
+  promo?: string;
 }
