@@ -61,7 +61,7 @@ const Footer = ({ t }: any) => {
         <Row
             justify="space-between"
           >
-            <NavLink to="">
+            <NavLink to="#">
             <Title>{t("Quick Links")}</Title>
               <Large to="#" left="true">
                 <a onClick={()=>scrollToLocation("featured")}>

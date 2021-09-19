@@ -59,6 +59,10 @@ export const Styles = createGlobalStyle`
         color: #18216d;
     }
 
+    section  {
+      margin: -5% 0px -5% 0px;
+    }
+
     input,
     textarea {
         border-radius: 3px;
@@ -268,8 +272,8 @@ export const Styles = createGlobalStyle`
 
       /********* Timer style********/
       .timer {
-        width: 100%;
-        margin: 20px 0px;
+        width: 80%;
+        margin: 20px auto 0px auto;
       }
       .timer .value-container{
         padding: 20px 0px 8px 0px;
