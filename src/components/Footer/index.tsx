@@ -63,22 +63,22 @@ const Footer = ({ t }: any) => {
           >
             <NavLink to="">
             <Title>{t("Links")}</Title>
-              <Large to="/app" left="true">
+              <Large to="#" left="true">
                 <a onClick={()=>scrollToLocation("featured")}>
                   {t("Featured")}
                 </a>
               </Large>
-              <Large left="true" to="/app">
-                <a onClick={()=>scrollToLocation("featured")}>
+              <Large left="true" to="#">
+                <a onClick={()=>scrollToLocation("about")}>
                   {t("About Savage Werewolf Society")}
                 </a>
               </Large>
-              <Large left="true" to="/app">
+              <Large left="true" to="#">
                 <a onClick={()=>scrollToLocation("mint")}>
                 {t("Mint NFT")}
                 </a>
               </Large>
-              <Large left="true" to="/app">
+              <Large left="true" to="#">
                 <a onClick={()=>scrollToLocation("roadmap")}>
                 {t("Road Map")}
                 </a>
