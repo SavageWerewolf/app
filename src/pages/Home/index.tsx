@@ -291,9 +291,29 @@ const seconds =(secondsLeft)%60;
 const mins = ((secondsLeft - seconds)/60)%60;
 const hours = ((secondsLeft - seconds -(mins*60))/(60*60))%24;
 const days = ((secondsLeft - seconds -(mins*60)- (hours*60*60))/(60*60*24));
-const saleCountdown = days+" days "+hours+" hours "+mins+" mins "+ Math.floor(seconds)+" seconds"
+const saleCountdown = (
+  <div className="timer">
+    <Row justify="space-between" align="middle">
+      <Col className="value-container">
+        <p className="value">{days} </p><p className="label">Days</p>
+       </Col>
+      <Col className="value-container">
+        <p className="value">{hours}</p><p className="label">Hours</p>
+      </Col>
+      <Col className="value-container">
+        <p className="value">{mins}</p><p className="label">Minutes</p>
+      </Col>
+      <Col className="value-container">
+        <p className="value">{Math.floor(seconds)}</p><p className="label">Seconds</p>
+       </Col>
+    </Row>
+{/* days+" Days "+hours+" Hours "+mins+" Mintues "+ Math.floor(seconds)+" Seconds" */}
+
+  </div>
+
+)
 const mintNFTComponent = (
-  <div className="mint-container sale-timer">
+  <div className="mint-container">
          <p>
           <p>
               Get your unique Savage Werewolf 
@@ -302,9 +322,9 @@ const mintNFTComponent = (
           </p>
           
           {(saleTime>currenTime)? 
-          (<div> Sale in <br/>{saleCountdown}</div>) 
+          (<div className="sale-timer"> Starts in <br/>{saleCountdown}</div>) 
            : 
-           (<div>
+           (<div className="mint-section">
             <p>
             <Progressbar progress={availableToken} max={maxToken} height={30} />
           </p>
@@ -345,55 +365,42 @@ const featuredGallery = (
 
 const roadMap = 
   (
-    <div className="timeline">
-      
-  <div className="container right">
-    <div className="date">0%</div>
+<div className="timeline">
+  <div className="container left">
     <div className="content">
-      <h2>Birth of Savage Werewolves</h2>
-      <p>
-      The beginning of Savage Werewolf Society.
-      </p>
+      <h5>0%
+      </h5>
+      <p>Birth of Savage Werewolves. The beginning of Savage Werewolf Society.</p>
+    </div>
+  </div>
+  <div className="container right">
+    <div className="content">
+      <h5>25%</h5>
+      <p>Unleash Savage Werewolves. Sell out the entire collection and open the gates. We will release all werewolves of which society shall embrace in all forms and color...</p>
     </div>
   </div>
   <div className="container left">
-    <div className="date">25%</div>
     <div className="content">
-      <h2>Unleash Savage Werewolves </h2>
-      <p>
-      Sell out the entire collection and open the gates. We will release all werewolves of which society shall embrace in all forms and color.
-      </p>
+      <h5>50%
+      </h5>
+      <p>Exclusive Perks. These are not just any Werewolf. Thus..they will have access to premium perk's such as clubs, exclusive mints & future incentives beyond this ecosystem.</p>
     </div>
   </div>
   <div className="container right">
-    <div className="date">50%</div>
     <div className="content">
-      <h2>Exclusive Perks</h2>
-      <p>
-        These are not just any Werewolf. Thus..they will have access to premium perk's such as clubs, exclusive mints & future incentives beyond this ecosystem.
-      </p>
+      <h5>75%</h5>
+      <p> Werewolf Metaverse! An exclusive Savage Werewolf Society game will be released with community prizes....</p>
     </div>
   </div>
   <div className="container left">
-    <div className="date">75%</div>
     <div className="content">
-      <h2>Play to earn</h2>
-      <p>
-        An exclusive Savage Werewolf Society game will be released with community prizes.
-      </p>
+      <h5>100%
+      </h5>
+      <p>      Merchandise! The Shopping Strip is now open.
+      Get decked out in an exclusive selection of Savage Werewolf merch.</p>
     </div>
   </div>
-  <div className="container right">
-    <div className="date">100%</div>
-    <div className="content">
-      <h2>Merchandise</h2>
-      <p>
-      The Shopping Strip is now open.
-      Get decked out in an exclusive selection of Savage Werewolf merch.
-      </p>
-    </div>
-  </div>
-</div>
+ </div>
     )
 
 
