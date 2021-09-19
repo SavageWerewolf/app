@@ -6,31 +6,31 @@ export const Styles = createGlobalStyle`
 
     @font-face {
       font-family: "Motiva Sans Light";
-      src: url("/fonts/Motiva-Sans-Light.ttf") format("truetype");
+      src: url("fonts/Motiva-Sans-Light.ttf") format("truetype");
       font-style: normal;
   }
 
     @font-face {
         font-family: "Motiva Sans Bold";
-        src: url("/fonts/Motiva-Sans-Bold.ttf") format("truetype");
+        src: url("fonts/Motiva-Sans-Bold.ttf") format("truetype");
         font-style: normal;
     }
 
     @font-face {
         font-family: "why so serious";
-        src: url("/fonts/whysoserious.ttf") format("truetype");
+        src: url("fonts/whysoserious.ttf") format("truetype");
         font-style: normal;
     }
 
     @font-face {
         font-family: "Howling Nightmare";
-        src: url("/fonts/Howling Nightmare.ttf") format("truetype");
+        src: url("fonts/Howling Nightmare.ttf") format("truetype");
         font-style: normal;
     }
 
     @font-face {
         font-family: "Feast of Flesh BB";
-        src: url("/fonts/feast-of-flesh-bb.regular.ttf") format("truetype");
+        src: url("fonts/feast-of-flesh-bb.regular.ttf") format("truetype");
         font-style: normal;
     }
 
@@ -43,7 +43,7 @@ export const Styles = createGlobalStyle`
 
 
     body {
-        background-image: url("/img/bg.png");
+        background-image: url("img/bg.png");
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
