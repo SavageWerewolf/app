@@ -62,7 +62,7 @@ const Footer = ({ t }: any) => {
             justify="space-between"
           >
             <NavLink to="">
-            <Title>{t("Links")}</Title>
+            <Title>{t("Quick Links")}</Title>
               <Large to="#" left="true">
                 <a onClick={()=>scrollToLocation("featured")}>
                   {t("Featured")}

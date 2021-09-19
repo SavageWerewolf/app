@@ -122,7 +122,7 @@ export const Styles = createGlobalStyle`
     h3,
     h4,
     h5, h6 {
-        font-family: 'Howling Nightmare', serif;
+        font-family: 'Motiva Sans Bold', serif;
         color: #dddddd;
         font-size: 50px;
         line-height: 1.18;
