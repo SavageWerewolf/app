@@ -322,7 +322,7 @@ const mintNFTComponent = (
           </p>
           
           {(saleTime>currenTime)? 
-          (<div className="sale-timer"> Starts in <br/>{saleCountdown}</div>) 
+          (<div className="sale-timer"> Presale starts in <br/>{saleCountdown}</div>) 
            : 
            (<div className="mint-section">
             <p>
