@@ -1,6 +1,6 @@
 const routes = [
   {
-    path: ["/", "/home","app"],
+    path: ["/", "/home","/app"],
     exact: true,
     component: "Home",
   },
