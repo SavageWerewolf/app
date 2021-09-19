@@ -438,7 +438,7 @@ const roadMap =
             "scrollTo": "roadmap"
           }
         ]}
-        icon="svg/logo.png"
+        icon="logo.png"
         id="intro"
       />
       <MiddleBlock
