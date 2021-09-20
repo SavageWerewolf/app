@@ -111,7 +111,7 @@ const providerOptions = {
 
 const web3Modal = new Web3Modal({
   network: "rinkeby",
-  cacheProvider: false, // optional
+  cacheProvider: true, // optional
   providerOptions // required
 });
 const Home = () => {
@@ -132,6 +132,7 @@ const Home = () => {
   const [blocking, setBlocking] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().getTime());
+  const [provider, setProvider] = useState(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/bb7e7e6dd19b4835bdc347b3074797ba"));
 
   const updateTime = () => {
     setCurrentTime(new Date().getTime())
@@ -149,26 +150,13 @@ const Home = () => {
     }
 
     loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
-    // const loadAccount= async  () =>{
-    //   if (web3Modal.cachedProvider) {
-    //     const provider = await web3Modal.connect();
-    //     console.log(provider)
-    //     const web3 = new Web3(provider);
-    //     web3.eth.getAccounts().then((accounts)=>{
-    //       if(accounts.length>0){
-    //         setAccount(accounts[0])
-    //       }
-    //     })
-    //   }
-    // }
-    // loadAccount();
   }, []);
 
 
   const loadContractInfo = async (contractAbi: any, contractAddress: string) => {
     console.log("loadContractInfo")
     // const provider = await web3Modal.connect();
-    const web3 = new Web3(Web3.givenProvider);
+    const web3 = new Web3(provider);
     const contract = new web3.eth.Contract(contractAbi, contractAddress)
     
     const tokenLeft = await contract.methods.availableToMint().call()
@@ -183,12 +171,6 @@ const Home = () => {
     // const voucherLeft = await contract.methods.getAvailableVoucher(voucher).call()
     // setAvailableVoucher(voucherLeft)
 
-    // const accounts = await web3.eth.getAccounts()
-    // setAccount(accounts[0])
-    // if(accounts.length>0){
-    //   const tokenOwn = await contract.methods.balanceOf(accounts[0]).call()
-    //   setBalance(tokenOwn)
-    // }
   }
 
   useEffect(() => {
@@ -217,9 +199,6 @@ const Home = () => {
     // await provider.disconnect()
   }
 
-
-  const [provider, setProvider] = useState("");
-
   const connectWallet = async () => {
     const provider = await web3Modal.connect();
     setProvider(provider)
@@ -230,42 +209,14 @@ const Home = () => {
       }else{
         setAccount("")
       }
+    }).catch((error)=>{
+      console.log(error.message)
     })
-
-    // var metaMaskResponse = {connectedStatus: false, status: "unknown", address: []}
-    // if (window.ethereum) { //check if Metamask is installed
-    //       try {
-    //           const address = await window.ethereum.enable(); //connect Metamask
-    //           metaMaskResponse = {
-    //                   connectedStatus: true,
-    //                   status: "Connect to Metamask Successully",
-    //                   address: address
-    //               }
-    //       } catch (error) {
-    //         metaMaskResponse = {
-    //               connectedStatus: false,
-    //               status: "🦊 Connect to Metamask using the button on the top right.", 
-    //               address: []
-    //           }
-    //       }
-    // } else {
-    //   metaMaskResponse = {
-    //           connectedStatus: false,
-    //           status: "🦊 You must install Metamask into your browser: https://metamask.io/download.html", 
-    //           address: []
-    //       }
-    // } 
-    
-    // if(metaMaskResponse.connectedStatus){
-    //   setAccount(metaMaskResponse.address[0])
-    // }else{
-    //   alert(metaMaskResponse.status)
-    // }
   };
 
   const mintToken = async (qty: number) => {
     if(account.length>0){
-      const web3 = new Web3(Web3.givenProvider);
+      const web3 = new Web3(provider);
       console.log("mintToken called")
       const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
       const payableAmount =  (qty* mintPrice * 10 **18).toString() 
@@ -309,8 +260,7 @@ const Home = () => {
   }
 
   const onMint = async (event : any) =>{
-    // const provider = await web3Modal.connect();
-    const web3 = new Web3(Web3.givenProvider);
+    const web3 = new Web3(provider);
     if(availableToken==0){
       event.preventDefault();
     }else {
@@ -451,8 +401,6 @@ const getTimer = () =>{
           <p className="value">{Math.floor(seconds)}</p><p className="label">Seconds</p>
          </Col>
       </Row>
-  {/* days+" Days "+hours+" Hours "+mins+" Mintues "+ Math.floor(seconds)+" Seconds" */}
-  
     </div>
   )
   return saleCountdown;
