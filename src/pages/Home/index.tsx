@@ -4,7 +4,6 @@ import { Row, Col } from "antd";
 import { Slide, Zoom } from "react-awesome-reveal";
 import {  ValidationTypeProps } from "../../components/Form/types";
 import Input from "../../common/Input";
-import Web3 from 'web3'
 import {  FormGroup, Span } from "../../components/Form/styles";
 import {AbiItem} from 'web3-utils';
 import  { useEffect, useState } from 'react';
@@ -13,7 +12,9 @@ import CryptoJS from 'crypto-js';
 import validate from "../../common/utils/validationRules";
 import contractJson from "../../SmartContract.json";
 import BlockUi from 'react-block-ui';
-import WalletLink from 'walletlink'
+import Web3 from "web3";
+import Web3Modal, { PROVIDER_CONTAINER_CLASSNAME } from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 require('dotenv').config();
 const Form = lazy(() => import("../../components/Form"));
@@ -99,17 +100,20 @@ interface ProgressbarProps {
   progress :number ,max :number,height:number
 }
 
-  const walletLink = new WalletLink({
-    appName: "Savage Werewolf Society",
-    appLogoUrl: "https://raw.githubusercontent.com/SavageWerewolf/app/main/public/img/icons/logo512.png",
-    darkMode: true
-  })
+const providerOptions = {
+  walletconnect: {
+    package: WalletConnectProvider, // required
+    options: {
+      infuraId: "bb7e7e6dd19b4835bdc347b3074797ba" // required
+    }
+  }
+};
 
-  const ethereum = walletLink.makeWeb3Provider(
-    "https://rinkeby.infura.io/v3/bb7e7e6dd19b4835bdc347b3074797ba", 1
-  )
-  const web3 = new Web3(ethereum as any)
-
+const web3Modal = new Web3Modal({
+  network: "rinkeby",
+  cacheProvider: false, // optional
+  providerOptions // required
+});
 const Home = () => {
 	
   document.addEventListener("contextmenu", function(e){
@@ -132,50 +136,66 @@ const Home = () => {
   const updateTime = () => {
     setCurrentTime(new Date().getTime())
   }
+  
 
   useEffect(() => {
     console.log("time changed")
   }, [currentTime]);
-
   
   useEffect(() => {
     if(!timerStarted){
       setInterval(updateTime, 1000);
       setTimerStarted(true);
     }
+
     loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
-    web3.eth.getAccounts().then((accounts)=>{
-      if(accounts.length>0){
-        setAccount(accounts[0])
-      }
-    })
+    // const loadAccount= async  () =>{
+    //   if (web3Modal.cachedProvider) {
+    //     const provider = await web3Modal.connect();
+    //     console.log(provider)
+    //     const web3 = new Web3(provider);
+    //     web3.eth.getAccounts().then((accounts)=>{
+    //       if(accounts.length>0){
+    //         setAccount(accounts[0])
+    //       }
+    //     })
+    //   }
+    // }
+    // loadAccount();
   }, []);
 
 
   const loadContractInfo = async (contractAbi: any, contractAddress: string) => {
     console.log("loadContractInfo")
+    // const provider = await web3Modal.connect();
+    const web3 = new Web3(Web3.givenProvider);
     const contract = new web3.eth.Contract(contractAbi, contractAddress)
-    const accounts = await web3.eth.getAccounts()
-    setAccount(accounts[0])
-    if(accounts.length>0){
-      const tokenOwn = await contract.methods.balanceOf(accounts[0]).call()
-      setBalance(tokenOwn)
-    }
+    
     const tokenLeft = await contract.methods.availableToMint().call()
     console.log(tokenLeft)
     setAvailableToken(tokenLeft)
+
+    const maxToken = await contract.methods.getMaxToken().call()
+    setMaxToken(maxToken)
 
     // const voucherJson = CryptoJS.AES.decrypt(voucherCode, process.env.REACT_APP_ENCRYPTION_KEY?process.env.REACT_APP_ENCRYPTION_KEY:"" ).toString(CryptoJS.enc.Utf8)
     // const voucher = JSON.parse(voucherJson)
     // const voucherLeft = await contract.methods.getAvailableVoucher(voucher).call()
     // setAvailableVoucher(voucherLeft)
 
-    const maxToken = await contract.methods.getMaxToken().call()
-    setMaxToken(maxToken)
+    // const accounts = await web3.eth.getAccounts()
+    // setAccount(accounts[0])
+    // if(accounts.length>0){
+    //   const tokenOwn = await contract.methods.balanceOf(accounts[0]).call()
+    //   setBalance(tokenOwn)
+    // }
   }
 
   useEffect(() => {
+    console.log(account)
     const loadUserInfo = async (contractAbi: any, contractAddress: string) => {
+      // const provider = await web3Modal.connect();
+      const web3 = new Web3(Web3.givenProvider);
       if(account!== undefined && account!=="" ){
         const contract = new web3.eth.Contract(contractAbi, contractAddress)
         const tokenOwn = await contract.methods.balanceOf(account).call()
@@ -192,27 +212,25 @@ const Home = () => {
     loadUserInfo(contractJson.abi as AbiItem[], contractAddress);
   }, [account]);
 
+  const disconnect = async ()=>{
+    // const provider = await web3Modal.cachedProvider();
+    // await provider.disconnect()
+  }
+
+
+  const [provider, setProvider] = useState("");
 
   const connectWallet = async () => {
-  
-    ethereum.send('eth_requestAccounts').then((accounts: string[]) => {
-      console.log(`User's address is ${accounts[0]}`)
-    
-      // Optionally, have the default account set for web3.js
-      web3.eth.defaultAccount = accounts[0]
-    }).catch((error) =>{
-        console.log(`error is ${error}`);
-      })
-    
-
-    
-    // ethereum.enable().then((accounts: string[]) => {
-    //   console.log(`User's address is ${accounts[0]}`)
-    //   web3.eth.defaultAccount = accounts[0]
-    // }).catch((error) =>{
-    //   console.log(`error is ${error}`);
-    // })
-
+    const provider = await web3Modal.connect();
+    setProvider(provider)
+    const web3 = new Web3(provider);
+    web3.eth.getAccounts().then((accounts)=>{
+      if(accounts.length>0){
+        setAccount(accounts[0]);
+      }else{
+        setAccount("")
+      }
+    })
 
     // var metaMaskResponse = {connectedStatus: false, status: "unknown", address: []}
     // if (window.ethereum) { //check if Metamask is installed
@@ -246,35 +264,33 @@ const Home = () => {
   };
 
   const mintToken = async (qty: number) => {
-    web3.eth.getAccounts().then((accounts)=>{
-      if(accounts.length>0){
-        setAccount(accounts[0])
-        console.log("mintToken called")
-        const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
-        const payableAmount =  (qty* mintPrice * 10 **18).toString() 
-        console.log("mintPrice: "+mintPrice)
-        console.log("qty: "+qty)
-        setBlocking(true);
-    
-        contract.methods.mintNFT(qty).send({from: account,value: payableAmount})
-        .then((result: any) => {
-          console.log("Success! Got result: " + JSON.stringify(result));
-          loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
-          alert("Transaction Completed");
-          setBlocking(false);
-        }).catch((err: any) => {
-          console.log("Failed with error: " + JSON.stringify(err));
-          alert(err.message);
-          setBlocking(false);
-        });
-      }else{
-        setAccount("")
-      }
-    })
+    if(account.length>0){
+      const web3 = new Web3(Web3.givenProvider);
+      console.log("mintToken called")
+      const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
+      const payableAmount =  (qty* mintPrice * 10 **18).toString() 
+      console.log("mintPrice: "+mintPrice)
+      console.log("qty: "+qty)
+      setBlocking(true);
+  
+      contract.methods.mintNFT(qty).send({from: account,value: payableAmount})
+      .then((result: any) => {
+        console.log("Success! Got result: " + JSON.stringify(result));
+        loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
+        alert("Transaction Completed");
+        setBlocking(false);
+      }).catch((err: any) => {
+        console.log("Failed with error: " + JSON.stringify(err));
+        alert(err.message);
+        setBlocking(false);
+      });
+    }
   }
 
 
   const redeemVoucher = async (qty:number, voucherCode: string)=>{
+    const provider = await web3Modal.connect();
+    const web3 = new Web3(provider);
     const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
     const accounts:string[] = await web3.eth.getAccounts()
     setAccount(accounts[0])
@@ -292,7 +308,9 @@ const Home = () => {
     });
   }
 
-  const onMint = (event : any) =>{
+  const onMint = async (event : any) =>{
+    // const provider = await web3Modal.connect();
+    const web3 = new Web3(Web3.givenProvider);
     if(availableToken==0){
       event.preventDefault();
     }else {
@@ -493,6 +511,7 @@ const getMintNFTComponent= () => (
         scrollTo="mint"
         id = "featured"
       />
+      
 
       <ContentBlock
         type="left"
