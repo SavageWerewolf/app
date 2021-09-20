@@ -104,14 +104,14 @@ const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      infuraId: "bb7e7e6dd19b4835bdc347b3074797ba" // required
+      infuraId: process.env.REACT_APP_INFURA_ID // required
     }
   }
 };
 
 const web3Modal = new Web3Modal({
-  network: "rinkeby",
-  cacheProvider: true, // optional
+  network: process.env.REACT_APP_NETWORK,
+  cacheProvider: false, // optional
   providerOptions // required
 });
 const Home = () => {
@@ -132,29 +132,25 @@ const Home = () => {
   const [blocking, setBlocking] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().getTime());
-  const [provider, setProvider] = useState(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/bb7e7e6dd19b4835bdc347b3074797ba"));
+  const url = process.env.REACT_APP_API_URL?new Web3.providers.HttpProvider(process.env.REACT_APP_API_URL):Web3.givenProvider
+  const [provider, setProvider] = useState(url);
 
   const updateTime = () => {
     setCurrentTime(new Date().getTime())
+    loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
   }
   
-
-  useEffect(() => {
-    console.log("time changed")
-  }, [currentTime]);
   
   useEffect(() => {
     if(!timerStarted){
       setInterval(updateTime, 1000);
       setTimerStarted(true);
     }
-
     loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
   }, []);
 
 
   const loadContractInfo = async (contractAbi: any, contractAddress: string) => {
-    console.log("loadContractInfo")
     // const provider = await web3Modal.connect();
     const web3 = new Web3(provider);
     const contract = new web3.eth.Contract(contractAbi, contractAddress)
@@ -240,23 +236,24 @@ const Home = () => {
 
 
   const redeemVoucher = async (qty:number, voucherCode: string)=>{
-    const provider = await web3Modal.connect();
-    const web3 = new Web3(provider);
-    const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
-    const accounts:string[] = await web3.eth.getAccounts()
-    setAccount(accounts[0])
-    const voucherJson = CryptoJS.AES.decrypt(voucherCode,process.env.REACT_APP_ENCRYPTION_KEY?process.env.REACT_APP_ENCRYPTION_KEY: "" ).toString(CryptoJS.enc.Utf8)
-    const voucher = JSON.parse(voucherJson)
-    // console.log(voucher.minPrice)
-    const payableAmount =  (qty * voucher.minPrice).toString() 
-    console.log(qty)
-    console.log(payableAmount)
-    contract.methods.redeem(accounts[0], voucher, qty).send({from: accounts[0],value: payableAmount})  
-    .then((result:any) => {
-      console.log("Success! Got result: " + JSON.stringify(result));
-    }).catch((err:any) => {
-      console.log("Failed with error: " + JSON.stringify(err));
-    });
+    if(account.length>0){
+      const web3 = new Web3(provider);
+      const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
+      const accounts:string[] = await web3.eth.getAccounts()
+      setAccount(accounts[0])
+      const voucherJson = CryptoJS.AES.decrypt(voucherCode,process.env.REACT_APP_ENCRYPTION_KEY?process.env.REACT_APP_ENCRYPTION_KEY: "" ).toString(CryptoJS.enc.Utf8)
+      const voucher = JSON.parse(voucherJson)
+      // console.log(voucher.minPrice)
+      const payableAmount =  (qty * voucher.minPrice).toString() 
+      console.log(qty)
+      console.log(payableAmount)
+      contract.methods.redeem(accounts[0], voucher, qty).send({from: accounts[0],value: payableAmount})  
+      .then((result:any) => {
+        console.log("Success! Got result: " + JSON.stringify(result));
+      }).catch((err:any) => {
+        console.log("Failed with error: " + JSON.stringify(err));
+      });
+    }
   }
 
   const onMint = async (event : any) =>{
