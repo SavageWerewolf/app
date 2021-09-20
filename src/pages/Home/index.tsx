@@ -68,7 +68,7 @@ const featuredGallery = (
     <div className="container right">
       <div className="content">
         <h5>25%</h5>
-        <p>Unleash Savage Werewolves. Sell out the entire collection and open the gates. We will release all werewolves of which society shall embrace in all forms and color...</p>
+        <p>Unleash Savage Werewolves. Sell out the entire collection and open the gates. We will release all werewolves of which society shall embrace in all forms and color.</p>
       </div>
     </div>
     <div className="container left">
@@ -81,14 +81,14 @@ const featuredGallery = (
     <div className="container right">
       <div className="content">
         <h5>75%</h5>
-        <p> Werewolf Metaverse! An exclusive Savage Werewolf Society game will be released with community prizes....</p>
+        <p> Werewolf Metaverse! An exclusive Savage Werewolf Society game will be released with community prizes.</p>
       </div>
     </div>
     <div className="container left">
       <div className="content">
         <h5>100%
         </h5>
-        <p>      Merchandise! The Shopping Strip is now open.
+        <p>Merchandise! The Shopping Strip is now open.
         Get decked out in an exclusive selection of Savage Werewolf merch.</p>
       </div>
     </div>
