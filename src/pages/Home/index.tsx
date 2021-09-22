@@ -75,7 +75,7 @@ const featuredGallery = (
       <div className="content">
         <h5>50%
         </h5>
-        <p>Exclusive Perks. These are not just any Werewolf. Thus..they will have access to premium perk's such as clubs, exclusive mints & future incentives beyond this ecosystem.</p>
+        <p>Exclusive Perks. These are not just any werewolves. Therefore, they will have access to premium perks such as exclusive mints & future incentives beyond this ecosystem.</p>
       </div>
     </div>
     <div className="container right">
