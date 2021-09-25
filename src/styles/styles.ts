@@ -289,6 +289,16 @@ export const Styles = createGlobalStyle`
         font-size: 0.9rem
       }
 
+
+      .mint-container .sale-label{
+        padding: 20px 0px 8px 0px;
+        font-size: 1.4em;
+      }
+
+      .attention{
+        color: red;
+        font-size: 1.4em;
+      }
      /********* Timer End of style********/
 
      /********* roadmap timeline style********/

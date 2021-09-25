@@ -15,6 +15,7 @@ import BlockUi from 'react-block-ui';
 import Web3 from "web3";
 import Web3Modal, { PROVIDER_CONTAINER_CLASSNAME } from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import styled from "styled-components";
 
 require('dotenv').config();
 const Form = lazy(() => import("../../components/Form"));
@@ -23,6 +24,7 @@ const Container = lazy(() => import("../../common/Container"));
 const ScrollToTop = lazy(() => import("../../common/ScrollToTop"));
 const ContentBlock = lazy(() => import("../../components/ContentBlock"));
 const saleTime =  process.env.REACT_APP_SALE_TIME? parseInt(process.env.REACT_APP_SALE_TIME):0
+const enableCountdown =  process.env.REACT_APP_COUNTDOWN? parseInt(process.env.REACT_APP_COUNTDOWN):false
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS? process.env.REACT_APP_CONTRACT_ADDRESS: ""
 const mintPrice: number = process.env.REACT_APP_MIN_PRICE? parseFloat(process.env.REACT_APP_MIN_PRICE):0.05
 declare let window: any;
@@ -398,6 +400,7 @@ const getTimer = () =>{
           <p className="value">{Math.floor(seconds)}</p><p className="label">Seconds</p>
          </Col>
       </Row>
+          <div className="sale-label">{(new Date(saleTime)).toUTCString()} </div>
     </div>
   )
   return saleCountdown;
@@ -412,16 +415,28 @@ const getMintNFTComponent= () => (
           <img src="img/place_holder_example.png" width="200px"/>
           </p>
           
-          {(saleTime>currentTime)? 
-          (<div className="sale-timer"> Presale starts in <br/>{getTimer()}</div>) 
-           : 
-           (<div className="mint-section">
-            <p>
-            <Progressbar progress={availableToken} max={maxToken} height={30} />
-          </p>
+          {
+          (saleTime>currentTime)? 
+            ( enableCountdown?
+              (<div className="sale-timer "> <span className="sale-label" >Presale starts in </span><br/>{getTimer()}</div>) 
+              :
+              (<div className="sale-label">
+              <span className="attention">Coming Soon!</span>
+              <p>Date to be announced</p>
+              </div>
+              )
+            )
+            : 
+            (
+              (<div className="mint-section">
+              <p>
+              <Progressbar progress={availableToken} max={maxToken} height={30} />
+              </p>
               {mintComponent()}
-            </div>
-            )}
+              </div>
+            )
+           )  
+           }
           
   </div>
 )
