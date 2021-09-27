@@ -60,7 +60,7 @@ export const Styles = createGlobalStyle`
     }
 
     section  {
-      margin: -5% 0px -5% 0px;
+      margin: -5% 0px -10% 0px;
     }
 
     input,
@@ -106,27 +106,22 @@ export const Styles = createGlobalStyle`
     h1 {
         font-family: 'Feast of Flesh BB', serif;
         color: #dddddd;
-        font-size: 90px;
+        font-size: 80px;
         line-height: 1.1;
 
-        background: -webkit-linear-gradient(#ffffffaa, #ffffff, #aaaaaa55);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        @media only screen and (max-width: 890px) {
-          font-size: 59px;
-        }
-      
-        @media only screen and (max-width: 414px) {
-          font-size: 35px;
-        }
+        
+        text-shadow:
+        5px -5px 1px #4026A8,
+        5px -5px 1px #4026A8,
+       -5px  5px 1px #4026A8,
+       -5px -5px 1px #4026A8;
     }
     
     h2,
     h3,
     h4,
     h5, h6 {
-        font-family: 'Motiva Sans Bold', serif;
+        font-family: 'Feast of Flesh BB', serif;
         color: #dddddd;
         font-size: 50px;
         line-height: 1.18;
@@ -138,6 +133,12 @@ export const Styles = createGlobalStyle`
         @media only screen and (max-width: 414px) {
           font-size: 32px;
         }
+        text-shadow:
+        2px -2px 1px #4026A8,
+        2px -2px 1px #4026A8,
+       -2px  2px 1px #4026A8,
+       -2px -2px 1px #4026A8;
+        
     }
 
     h3 {
@@ -303,142 +304,37 @@ export const Styles = createGlobalStyle`
 
      /********* roadmap timeline style********/
 
-      * {
-      box-sizing: border-box;
-    }
-    
-    
-    /* The actual timeline (the vertical ruler) */
-    .timeline {
-      position: relative;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    /* The actual timeline (the vertical ruler) */
-    .timeline::after {
-      content: '';
-      position: absolute;
-      width: 6px;
-      background-color: #ffffffcc;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      margin-left: -3px;
-    }
-    
-    /* Container around content */
-    .container {
-      padding: 6px 40px;
-      position: relative;
-      background-color: inherit;
-      width: 50%;
-    }
-    
-    /* The circles on the timeline */
-    .container::after {
-      content: '';
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      right: -12px;
-      background-color: #ffffff;
-      border: 2px solid #ffffff;
-      top: 15px;
-      border-radius: 50%;
-      z-index: 1;
-    }
-    
-    /* Place the container to the left */
-    .left {
-      left: 0;
-    }
-    
-    /* Place the container to the right */
-    .right {
-      left: 50%;
-    }
-    
-    /* Add arrows to the left container (pointing right) */
-    .left::before {
-      content: " ";
-      height: 0;
-      position: absolute;
-      top: 22px;
-      width: 0;
-      z-index: 1;
-      right: 30px;
-      border: medium solid #ffffffcc;
-      border-width: 10px 0 10px 10px;
-      border-color: transparent transparent transparent #ffffffcc;
-    }
-    
-    /* Add arrows to the right container (pointing left) */
-    .right::before {
-      content: " ";
-      height: 0;
-      position: absolute;
-      top: 22px;
-      width: 0;
-      z-index: 1;
-      left: 30px;
-      border: medium solid white;
-      border-width: 10px 10px 10px 0;
-      border-color: transparent white transparent transparent;
-    }
-    
-    /* Fix the circle for containers on the right side */
-    .right::after {
-      left: -13px;
-    }
-    
-    /* The actual content */
-    .content {
-      padding: 20px 30px;
-      background-color: #00000000;
-      border: 2px solid #ffffffcc;
-      border-width: 2px;
-      position: relative;
-      border-radius: 15px;
-    }
-    .content p, {
-      font-size: 1.3rem;
-    }
-    .content h5{
-      font-size: 2rem;
-    }
+     /* The actual content */
+     .roadmap{
+       padding-bottom: 10px;
+     }
 
-    /* Media queries - Responsive timeline on screens less than 600px wide */
-    @media screen and (max-width: 600px) {
-    /* Place the timelime to the left */
-      .timeline::after {
-        left: 31px;
-      }
-    
-    /* Full-width containers */
-      .container {
-        width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
-      }
-    
-    /* Make sure that all arrows are pointing leftwards */
-      .container::before {
-        left: 60px;
-        border: medium solid white;
-        border-width: 10px 10px 10px 0;
-        border-color: transparent white transparent transparent;
-      }
-    
-    /* Make sure all circles are at the same spot */
-      .left::after, .right::after {
-        left: 15px;
-      }
-    
-    /* Make all right containers behave like the left ones */
-      .right {
-        left: 0%;
-      }
-    }
+     .roadmap .content {
+       padding: 20px;
+       margin: 20px 0px 50px 0px;
+       background-color: #ffffff55;
+       border-width: 2px;
+       box-shadow: 10px 10px #ffffff33;
+     }
+     .roadmap .content p, {
+       font-size: 1.3rem;
+     }
+     .roadmap .content h5{
+       font-size: 1.7rem;
+       
+       text-shadow:
+       2px -2px 1px #00000000,
+       2px -2px 1px #00000000,
+      -2px  2px 1px #00000000,
+      -2px -2px 1px #00000000;
+     }
       /* end of roadmap timeline style*/
+
+      /* start of quicklink*/
+
+      #links button{
+        margin:10px;
+      }
+
+      /* end of quicklink*/
 `;

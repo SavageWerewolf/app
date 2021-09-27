@@ -14,6 +14,11 @@ const routes = [
     exact: true,
     component: "Home",
   },
+  {
+    path: ["/links"],
+    exact: true,
+    component: "LinkPage",
+  }
 ];
 
 export default routes;

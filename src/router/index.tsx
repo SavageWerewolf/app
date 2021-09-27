@@ -22,7 +22,8 @@ const Router = () => {
           );
         })}
       </Switch>
-      <Footer />
+      {/* <Links/> */}
+      {/* <Footer /> */}
     </Suspense>
   );
 };

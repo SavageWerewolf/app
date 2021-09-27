@@ -16,6 +16,7 @@ import Web3 from "web3";
 import Web3Modal, { PROVIDER_CONTAINER_CLASSNAME } from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import styled from "styled-components";
+import Links from "../../components/Links";
 
 require('dotenv').config();
 const Form = lazy(() => import("../../components/Form"));
@@ -59,42 +60,48 @@ const featuredGallery = (
   
   const roadMap = 
     (
-  <div className="timeline">
-    <div className="container left">
+      <div className="roadmap">
       <div className="content">
-        <h5>0%
+        <h5>Launch of Savage Werewolf Society
         </h5>
-        <p>Birth of Savage Werewolves. The beginning of Savage Werewolf Society.</p>
+        <p><ul>
+          <li>The Savage Werewolves sale will take place here on our website.</li>
+          <li>We will announce a date, time and price soon! (TBC)</li>
+          </ul></p>
       </div>
-    </div>
-    <div className="container right">
       <div className="content">
-        <h5>25%</h5>
-        <p>Unleash Savage Werewolves. Sell out the entire collection and open the gates. We will release all werewolves of which society shall embrace in all forms and color.</p>
+        <h5>Presale of Savage Werewolves</h5>
+        <p><ul>
+        <li>There will only be 2,000 werewolves available to be minted during the presale.</li>
+          <li>During the presale period, there will be giveaways to randomly selected and proactive members in our community.</li>
+          <li>Minted werewolves will stay hidden.</li>
+          </ul></p>
       </div>
-    </div>
-    <div className="container left">
       <div className="content">
-        <h5>50%
+        <h5>Release and Reveal of Savage Werewolf
         </h5>
-        <p>Exclusive Perks. These are not just any werewolves. Therefore, they will have access to premium perks such as exclusive mints & future incentives beyond this ecosystem.</p>
+        <p><ul>
+        <li>All minted werewolves will have their traits revealed at a specified date (TBC)</li>
+          <li>7,900 werewolves will be released to the public, where 100 will be reserved for exclusive event prizes</li>
+          <li>Release the rarity stats & info of all the minted werewolves!</li>
+          </ul></p>
       </div>
-    </div>
-    <div className="container right">
       <div className="content">
-        <h5>75%</h5>
-        <p> Werewolf Metaverse! An exclusive Savage Werewolf Society game will be released with community prizes.</p>
+        <h5>Community Driven</h5>
+        <p><ul>
+        <li>This is a community driven society. We will hear out suggestions and ideas and decides on the direction of this project!</li>
+          <li>We will host events and challenges with attractive prizes and gifts to be won!</li>
+          </ul></p>
       </div>
-    </div>
-    <div className="container left">
       <div className="content">
-        <h5>100%
+        <h5>Savage Werewolf Exclusives
         </h5>
-        <p>Merchandise! The Shopping Strip is now open.
-        Get decked out in an exclusive selection of Savage Werewolf merch.</p>
+        <p><ul>
+        <li>Randomly Selected NFT owners will receive ETH and NFTs as prizes</li>
+          <li>Holders will have exclusive mint and future incentives beyond this ecosystem!</li>
+          </ul></p>
       </div>
-    </div>
-   </div>
+      </div>
       )
   
 
@@ -412,7 +419,7 @@ const getMintNFTComponent= () => (
           <p>
               Get your unique Savage Werewolf 
            </p>
-          <img src="img/place_holder_example.png" width="200px"/>
+          <img src="img/place_holder_example.png" width="300px"/>
           </p>
           
           {
@@ -453,21 +460,23 @@ const getMintNFTComponent= () => (
         content=""
         button={[
           {
-            "title": "Featured",
-            "scrollTo": "featured"
-          },
+            "title": "Links",
+            "scrollTo": "links"
+          }
+          ,
           {
-            "title": "Road Map",
-            "scrollTo": "roadmap"
+            "title": "Mint",
+            "scrollTo": "mint"
           }
         ]}
         icon="logo.png"
         id="intro"
       />
+      
       <MiddleBlock
-        title="Featured"
+        title="Featured Werewolves"
         content={featuredGallery}
-        button="Mint"
+        button=""
         scrollTo="mint"
         id = "featured"
       />
@@ -491,7 +500,7 @@ const getMintNFTComponent= () => (
       />
       
       <MiddleBlock
-        title="Road Map"
+        title="Our Road Map"
         content={""}
         button=""
         scrollTo=""
@@ -499,6 +508,8 @@ const getMintNFTComponent= () => (
       />
 
       {roadMap}
+
+      <Links></Links>
      </BlockUi>
     </Container>
   );
