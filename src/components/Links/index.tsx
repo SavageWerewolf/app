@@ -45,7 +45,7 @@ const Links = () => {
           <div>
           <Row align="middle">
             <div>
-                <Button name="discord-btn" onClick={() =>  alert("Coming soon!")}>Discord
+                <Button name="discord-btn" onClick={() =>  openNewWindow("https://discord.gg/cdWbae2xm4")}>Discord
                 </Button>
                 <Button name="twitter-btn" onClick={() =>  openNewWindow("https://twitter.com/sws_werewolf")}>Twitter
                 </Button>
