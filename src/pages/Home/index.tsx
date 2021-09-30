@@ -419,7 +419,7 @@ const getMintNFTComponent= () => (
           <p>
               Get your unique Savage Werewolf 
            </p>
-          <img src="img/place_holder_example.png" width="300px"/>
+          <img src="img/place_holder_example.png" width="200px"/>
           </p>
           
           {
