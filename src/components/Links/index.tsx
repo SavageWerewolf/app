@@ -49,7 +49,7 @@ const Links = () => {
                 </Button>
                 <Button name="twitter-btn" onClick={() =>  openNewWindow("https://twitter.com/sws_werewolf")}>Twitter
                 </Button>
-                <Button name="instagram-btn"  onClick={() =>  openNewWindow("https://www.instagram.com/savage_werewolf_nft")}>Instagram
+                <Button name="instagram-btn"  onClick={() =>  openNewWindow("https://www.instagram.com/savagewerewolf_nft")}>Instagram
                 </Button>
             </div>
             </Row>
