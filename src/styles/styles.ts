@@ -9,7 +9,12 @@ export const Styles = createGlobalStyle`
       src: url("fonts/Motiva-Sans-Light.ttf") format("truetype");
       font-style: normal;
   }
-
+  @font-face {
+    font-family: "Acme-Regular";
+    src: url("fonts/Acme-Regular.ttf") format("truetype");
+    font-style: normal;
+}
+  
     @font-face {
         font-family: "Motiva Sans Bold";
         src: url("fonts/Motiva-Sans-Bold.ttf") format("truetype");
@@ -110,6 +115,12 @@ export const Styles = createGlobalStyle`
         line-height: 1.1;
 
         
+        @media only screen and (max-width: 600px) {
+          font-size: 60px;
+        }
+      
+
+        
         text-shadow:
         5px -5px 1px #4026A8,
         5px -5px 1px #4026A8,
@@ -121,7 +132,7 @@ export const Styles = createGlobalStyle`
     h3,
     h4,
     h5, h6 {
-        font-family: 'Feast of Flesh BB', serif;
+        font-family: 'Acme-Regular', serif;
         color: #dddddd;
         font-size: 50px;
         line-height: 1.18;
@@ -142,7 +153,7 @@ export const Styles = createGlobalStyle`
     }
 
     h3 {
-        font-family: 'Howling Nightmare', serif;
+        font-family: 'Acme-Regular', serif;
         color: #dddddd;
         font-size: 25px;
         line-height: 1.18;
@@ -157,7 +168,9 @@ export const Styles = createGlobalStyle`
     }
     p,
     label {
+        font-family: 'Acme-Regular', serif;
         color: #ffffff;
+        font-weight: 100;
         font-size: 21px;        
         line-height: 1.41;
     }
@@ -272,13 +285,15 @@ export const Styles = createGlobalStyle`
        /********* promo code *********/
 
       /********* Timer style********/
-      .timer {
+      .sale-timer {
         width: 80%;
-        margin: 20px auto 0px auto;
+        background-color: #00000033;
+        padding: 20px;
+        border-radius: 5%;
       }
       .timer .value-container{
         padding: 20px 0px 8px 0px;
-        border: 2px solid #ffffffcc;
+        border: 0px solid #ffffffcc;
         border-radius: 10px;
         width: 23%;
       }
@@ -290,11 +305,6 @@ export const Styles = createGlobalStyle`
         font-size: 0.9rem
       }
 
-
-      .mint-container .sale-label{
-        padding: 20px 0px 8px 0px;
-        font-size: 1.4em;
-      }
 
       .attention{
         color: red;

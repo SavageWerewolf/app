@@ -35,7 +35,7 @@ const RightBlock = ({
           <Col lg={11} md={11} sm={11} xs={24}>
             <ContentWrapper>
               <div>{ bold? (<h1>{t(title)}</h1>) :(<h6>{t(title)}</h6>)}</div>
-              <Content>{t(content)}</Content>
+              <Content>{content}</Content>
               <ButtonWrapper>
                 {typeof button === "object" &&
                   button.map((item: any, id: number) => {

@@ -39,11 +39,9 @@ export const useForm = (validate: any) => {
           setErrors(errors);
         } else{
           const qty = parseInt(values.qty)
-
-          if(values.hasOwnProperty('promo') && (values.promo?values.promo:"").length>0){
-            const promoCode = values.promo? values.promo:""
-            console.log(process.env.REACT_APP_ENCRYPTION_KEY)
-            console.log(promoCode)
+          if((values.hasOwnProperty('promo') && (values.promo?values.promo:"").length>0 || (process.env.REACT_APP_PROMO_CODE && process.env.REACT_APP_PROMO_CODE.length>0))){
+            const defaultpromo = process.env.REACT_APP_PROMO_CODE?process.env.REACT_APP_PROMO_CODE:""
+            const promoCode = values.promo? values.promo:defaultpromo
             const voucherJson = CryptoJS.AES.decrypt(promoCode,process.env.REACT_APP_ENCRYPTION_KEY?process.env.REACT_APP_ENCRYPTION_KEY: "" ).toString(CryptoJS.enc.Utf8)
             try{
               const voucher = JSON.parse(voucherJson)

@@ -62,5 +62,5 @@
     "@types/crypto-js": "^4.0.2",
     "gh-pages": "^3.2.3"
   },
-  "homepage1": "https://savagewerewolf.com"
+  "homepage": "https://savagewerewolf.com"
 }

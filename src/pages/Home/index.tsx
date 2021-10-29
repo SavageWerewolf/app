@@ -10,7 +10,7 @@ import  { useEffect, useState } from 'react';
 import { useForm } from "../../common/utils/useForm";
 import CryptoJS from 'crypto-js';
 import validate from "../../common/utils/validationRules";
-import contractJson from "../../SmartContract.json";
+import contractJson from "../../SavageWerewolfNFT.json";
 import BlockUi from 'react-block-ui';
 import Web3 from "web3";
 import Web3Modal, { PROVIDER_CONTAINER_CLASSNAME } from "web3modal";
@@ -78,12 +78,11 @@ const featuredGallery = (
           </ul></p>
       </div>
       <div className="content">
-        <h5>Release and Reveal of Savage Werewolf
+        <h5>Reveal of Savage Werewolf
         </h5>
         <p><ul>
         <li>All minted werewolves will have their traits revealed at a specified date (TBC)</li>
-          <li>7,900 werewolves will be released to the public, where 100 will be reserved for exclusive event prizes</li>
-          <li>Release the rarity stats & info of all the minted werewolves!</li>
+          <li>More generative  and 1/1 unique werewolves to be released for public sales and giveaways (subject to the community direction)</li>
           </ul></p>
       </div>
       <div className="content">
@@ -143,10 +142,14 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date().getTime());
   const url = process.env.REACT_APP_API_URL?new Web3.providers.HttpProvider(process.env.REACT_APP_API_URL):Web3.givenProvider
   const [provider, setProvider] = useState(url);
+  const [currentNetwork, setCurrentNetwork] = useState(0);
 
   const updateTime = () => {
     setCurrentTime(new Date().getTime())
     loadContractInfo(contractJson.abi as AbiItem[], contractAddress);
+    new Web3(Web3.givenProvider).eth.net.getId().then(id=>{
+      setCurrentNetwork(id)
+    });
   }
   
   
@@ -161,6 +164,7 @@ const Home = () => {
 
   const loadContractInfo = async (contractAbi: any, contractAddress: string) => {
     // const provider = await web3Modal.connect();
+
     const web3 = new Web3(provider);
     const contract = new web3.eth.Contract(contractAbi, contractAddress)
     
@@ -286,17 +290,21 @@ const Home = () => {
     );
   };
 
+  const a = ()=>{
+
+  }
 
   const mintComponent = () =>{
     var mintComponent:any = ""
-    if (account !== undefined && account !== ""){
+
+    if (account !== undefined && account !== "" && currentNetwork==137){
       mintComponent = (
         <div>
        <FormGroup autoComplete="off" onSubmit={onMint}>
         {availableToken>0?
         <p>   
-          Get a unqiue Werewolf at 0.05 ETH 
-          
+          Get a unqiue Werewolf at 50 MATIC 
+        
           <div className="mint-form">
            <Row justify="space-between" align="middle">
               <Col lg={12} md={11} sm={24} xs={24}>
@@ -318,8 +326,7 @@ const Home = () => {
               </Col>
             </Row> 
             </div>
-  
-            {process.env.REACT_APP_PROMO=="true"?( <div className="mint-form promo-container">
+            {process.env.REACT_APP_PROMO && !process.env.REACT_APP_PROMO_CODE?( <div className="mint-form promo-container">
              <Slide direction="up">
             <Input
               type="text"
@@ -341,8 +348,14 @@ const Home = () => {
        </div>
       )
     } else {
-      mintComponent = <Button name="submit" onClick={() => connectWallet()}>Connect Wallet
-      </Button>
+      mintComponent = ( <div>
+        <Button name="submit" onClick={() => connectWallet()}>Connect Wallet
+        </Button>
+        <div> 
+          <br/>
+          Make sure to connect to Polygon Mainnet
+          </div>
+      </div>)
     }
     return mintComponent
   }
@@ -372,11 +385,11 @@ const Home = () => {
         fontWeight: 100
       }
       
-   const text =  `${availableToken}/${max}`
+   const text =  `${availableToken}`
 
     return (
       <div>
-      <span style={progresstext}> {text} Left</span>
+      <span style={progresstext}> {text} Available</span>
       <div style={Parentdiv}>
       <div style={Childdiv}>
       </div>
@@ -416,10 +429,7 @@ const getTimer = () =>{
 const getMintNFTComponent= () => (
   <div className="mint-container">
          <p>
-          <p>
-              Get your unique Savage Werewolf 
-           </p>
-          <img src="img/place_holder_example.png" width="200px"/>
+          {/* <img src="img/place_holder_example.png" width="200px"/> */}
           </p>
           
           {
@@ -429,19 +439,18 @@ const getMintNFTComponent= () => (
               :
               (<div className="sale-label">
               <span className="attention">Coming Soon!</span>
-              <p>Date to be announced</p>
+              <p>Minting date to be announced</p>
               </div>
               )
             )
             : 
             (
-              (<div className="mint-section">
+            <div className="mint-section">
               <p>
-              <Progressbar progress={availableToken} max={maxToken} height={30} />
+              <Progressbar progress={maxToken-availableToken} max={maxToken} height={30} />
               </p>
               {mintComponent()}
               </div>
-            )
            )  
            }
           
@@ -455,20 +464,20 @@ const getMintNFTComponent= () => (
       <ScrollToTop />
       <ContentBlock
         type="right"
-        title="Savage Werewolf Society"
+        title="Savage Werewolf"
         bold={true}
-        content=""
-        button={[
-          {
-            "title": "Links",
-            "scrollTo": "links"
-          }
-          ,
-          {
-            "title": "Mint",
-            "scrollTo": "mint"
-          }
-        ]}
+        content={getMintNFTComponent()}
+        // button={[
+        //   {
+        //     "title": "Links",
+        //     "scrollTo": "links"
+        //   }
+        //   ,
+        //   {
+        //     "title": "Mint",
+        //     "scrollTo": "mint"
+        //   }
+        // ]}
         icon="logo.png"
         id="intro"
       />
@@ -484,20 +493,38 @@ const getMintNFTComponent= () => (
 
       <ContentBlock
         type="left"
-        title= "What is Savage Werewolf Society?"
-        content= "Savage Werewolf Society is a collection of 10,000 randomly generated, assembled from over hundreds of hand-drawn traits. All werewolves are unique and have their own characteristics and expressions."
+        title= "What is Savage Werewolf?"
+        content= "Savage Werewolf is a collection of 10,000 randomly generated, assembled from over hundreds of hand-drawn traits. All werewolves are unique and have their own characteristics and expressions."
         section={[]}
         icon="wolfpacks.png"
         id="about"
       />
+
+      <ContentBlock
+        type="right"
+        title= "Drops Rarity"
+        content= "The rarity of each werewolf can be identified by their skin color.The type of skin ranges from common plain colors to mix color or even epic premium skin such as gold and diamond 💎✨"
+        section={[]}
+        icon="rarity_1.png"
+        id="rarity"
+      />
+
+      <ContentBlock
+        type="left"
+        title= "100 x 1/1 Unique Drawings"
+        content= "We will be dropping unqiue drawings of werewolf through Instagram, Twitter or giveaways. So, follow us and keep a look out!"
+        section={[]}
+        icon="unique_drawings_1.png"
+        id="unqiue"
+      />
       
-      <MiddleBlock
+      {/* <MiddleBlock
         title="Be part of our Society"
         content={getMintNFTComponent()}
         button=""
         scrollTo=""
         id = "mint"
-      />
+      /> */}
       
       <MiddleBlock
         title="Our Road Map"

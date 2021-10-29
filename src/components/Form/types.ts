@@ -1,6 +1,6 @@
 export interface FormProps {
   title: string;
-  content: string;
+  content: any;
   id: string;
   t: any;
 }

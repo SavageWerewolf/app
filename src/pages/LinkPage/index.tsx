@@ -10,7 +10,6 @@ import  { useEffect, useState } from 'react';
 import { useForm } from "../../common/utils/useForm";
 import CryptoJS from 'crypto-js';
 import validate from "../../common/utils/validationRules";
-import contractJson from "../../SmartContract.json";
 import BlockUi from 'react-block-ui';
 import Web3 from "web3";
 import Web3Modal, { PROVIDER_CONTAINER_CLASSNAME } from "web3modal";

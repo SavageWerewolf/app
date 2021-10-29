@@ -3,7 +3,7 @@ import { Container, TextWrapper, Content } from "./styles";
 
 interface Props {
   title: string;
-  content: string;
+  content: any;
   t: any;
 }
 
