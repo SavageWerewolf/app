@@ -511,7 +511,7 @@ const getMintNFTComponent= () => (
 
       <ContentBlock
         type="left"
-        title= "100 x 1/1 Unique Drawings"
+        title= "100 Unique Drawings"
         content= "We will be dropping unqiue drawings of werewolf through Instagram, Twitter or giveaways. So, follow us and keep a look out!"
         section={[]}
         icon="unique_drawings_1.png"
