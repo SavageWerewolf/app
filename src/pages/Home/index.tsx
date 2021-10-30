@@ -440,7 +440,7 @@ const getTimer = () =>{
 const getMintNFTComponent= () => (
   <div className="mint-container">
          <p>
-          {/* <img src="img/place_holder_example.png" width="200px"/> */}
+          {/* { <img src="img/stackpack.png" width="200px"/> } */}
           </p>
           
           {
@@ -536,6 +536,7 @@ const getMintNFTComponent= () => (
         scrollTo=""
         id = "mint"
       /> */}
+      
       
       <MiddleBlock
         title="Our Road Map"

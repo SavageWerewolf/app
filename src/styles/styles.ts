@@ -102,7 +102,7 @@ export const Styles = createGlobalStyle`
 
         
         @media only screen and (max-width: 600px) {
-          font-size: 60px;
+          font-size: 56px;
         }
       
 
@@ -331,6 +331,13 @@ export const Styles = createGlobalStyle`
 
       #links button{
         margin:10px;
+      }
+
+      .profilePic{
+        width:100px;
+        height:100px;
+        border-radius:100%;
+        border: 3px solid #ffffffdd;
       }
 
       /* end of quicklink*/

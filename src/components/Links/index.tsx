@@ -24,10 +24,14 @@ const Links = () => {
   return (
     <Container>
     <MiddleBlock
-        title="Links"
+        title="Get In Touch"
         content={
           (
           <div>
+            
+            <img className="profilePic" src="img/stackpack.jpg"/><br/>
+          <Button name="instagram-btn"  onClick={() =>  openNewWindow("https://www.instagram.com/Stackpack/")}>Stack Pack
+          </Button>
           <Row align="middle">
             <div>
                 <Button name="discord-btn" onClick={() =>  openNewWindow("https://discord.gg/vFrTPBBr88")}>Discord
