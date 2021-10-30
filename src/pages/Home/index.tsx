@@ -65,7 +65,6 @@ const featuredGallery = (
         </h5>
         <p><ul>
           <li>The Savage Werewolves sale will take place here on our website.</li>
-          <li>We will announce a date, time and price soon! (TBC)</li>
           </ul></p>
       </div>
       <div className="content">
@@ -80,8 +79,8 @@ const featuredGallery = (
         <h5>Reveal of Savage Werewolf
         </h5>
         <p><ul>
-        <li>All minted werewolves will have their traits revealed at a specified date (TBC)</li>
-          <li>More generative  and 1/1 unique werewolves to be released for public sales and giveaways (subject to the community direction)</li>
+        <li>All minted werewolves will have their traits revealed at a specified date TBC (Subject to community response)</li>
+          <li>More generative and 1/1 unique werewolves to be released for public sales and giveaways (Subject to community response)</li>
           </ul></p>
       </div>
       <div className="content">
