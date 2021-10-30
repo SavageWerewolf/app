@@ -14,24 +14,6 @@ export const Styles = createGlobalStyle`
     src: url("fonts/Acme-Regular.ttf") format("truetype");
     font-style: normal;
 }
-  
-    @font-face {
-        font-family: "Motiva Sans Bold";
-        src: url("fonts/Motiva-Sans-Bold.ttf") format("truetype");
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: "why so serious";
-        src: url("fonts/whysoserious.ttf") format("truetype");
-        font-style: normal;
-    }
-
-    @font-face {
-        font-family: "Howling Nightmare";
-        src: url("fonts/Howling Nightmare.ttf") format("truetype");
-        font-style: normal;
-    }
 
     @font-face {
         font-family: "Feast of Flesh BB";
@@ -66,6 +48,10 @@ export const Styles = createGlobalStyle`
 
     section  {
       margin: -5% 0px -10% 0px;
+    }
+
+    .discountStyle{
+      color: red
     }
 
     input,
@@ -287,9 +273,10 @@ export const Styles = createGlobalStyle`
       /********* Timer style********/
       .sale-timer {
         width: 80%;
-        background-color: #00000033;
+        background-color: #ffffff33;
         padding: 20px;
         border-radius: 5%;
+        text-align:center;
       }
       .timer .value-container{
         padding: 20px 0px 8px 0px;

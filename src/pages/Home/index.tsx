@@ -27,7 +27,6 @@ const ContentBlock = lazy(() => import("../../components/ContentBlock"));
 const saleTime =  process.env.REACT_APP_SALE_TIME? parseInt(process.env.REACT_APP_SALE_TIME):0
 const enableCountdown =  process.env.REACT_APP_COUNTDOWN? parseInt(process.env.REACT_APP_COUNTDOWN):false
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS? process.env.REACT_APP_CONTRACT_ADDRESS: ""
-const mintPrice: number = process.env.REACT_APP_MIN_PRICE? parseFloat(process.env.REACT_APP_MIN_PRICE):0.05
 declare let window: any;
 
 
@@ -134,8 +133,10 @@ const Home = () => {
 
   const [account, setAccount] = useState("");
   const [balance, setBalance] = useState(0);
+  const[mintPrice, setMintPrice] = useState(process.env.REACT_APP_MIN_PRICE?process.env.REACT_APP_MIN_PRICE as any:50 as any)
   const [availableToken, setAvailableToken] = useState(0);
   const [availableVoucher, setAvailableVoucher] = useState(0);
+  const [voucherSupply, setVoucherSupply] = useState(0);
   const [maxToken, setMaxToken] = useState(10000);
   const [blocking, setBlocking] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
@@ -169,21 +170,27 @@ const Home = () => {
     const contract = new web3.eth.Contract(contractAbi, contractAddress)
     
     const tokenLeft = await contract.methods.availableToMint().call()
-    console.log(tokenLeft)
+    // console.log(tokenLeft)
     setAvailableToken(tokenLeft)
 
     const maxToken = await contract.methods.getMaxToken().call()
     setMaxToken(maxToken)
+    
+    if(process.env.REACT_APP_PROMO_CODE){
+      const voucherJson = CryptoJS.AES.decrypt(process.env.REACT_APP_PROMO_CODE?process.env.REACT_APP_PROMO_CODE:"", process.env.REACT_APP_ENCRYPTION_KEY?process.env.REACT_APP_ENCRYPTION_KEY:"" ).toString(CryptoJS.enc.Utf8)
+      const voucher = JSON.parse(voucherJson)
+      const voucherLeft = await contract.methods.getAvailableVoucher(voucher).call()
+      setAvailableVoucher(voucherLeft)
+      setVoucherSupply(voucher.supply)
+      if(voucherLeft>0){
+        setMintPrice(voucher.minPrice/(10**18))
+      }
 
-    // const voucherJson = CryptoJS.AES.decrypt(voucherCode, process.env.REACT_APP_ENCRYPTION_KEY?process.env.REACT_APP_ENCRYPTION_KEY:"" ).toString(CryptoJS.enc.Utf8)
-    // const voucher = JSON.parse(voucherJson)
-    // const voucherLeft = await contract.methods.getAvailableVoucher(voucher).call()
-    // setAvailableVoucher(voucherLeft)
+    }
 
   }
 
   useEffect(() => {
-    console.log(account)
     const loadUserInfo = async (contractAbi: any, contractAddress: string) => {
       // const provider = await web3Modal.connect();
       const web3 = new Web3(Web3.givenProvider);
@@ -226,11 +233,11 @@ const Home = () => {
   const mintToken = async (qty: number) => {
     if(account.length>0){
       const web3 = new Web3(provider);
-      console.log("mintToken called")
+      // console.log("mintToken called")
       const contract = new web3.eth.Contract(contractJson.abi as AbiItem[], contractAddress)
       const payableAmount =  (qty* mintPrice * 10 **18).toString() 
-      console.log("mintPrice: "+mintPrice)
-      console.log("qty: "+qty)
+      // console.log("mintPrice: "+mintPrice)
+      // console.log("qty: "+qty)
       setBlocking(true);
   
       contract.methods.mintNFT(qty).send({from: account,value: payableAmount})
@@ -258,8 +265,8 @@ const Home = () => {
       const voucher = JSON.parse(voucherJson)
       // console.log(voucher.minPrice)
       const payableAmount =  (qty * voucher.minPrice).toString() 
-      console.log(qty)
-      console.log(payableAmount)
+      // console.log(qty)
+      // console.log(payableAmount)
       contract.methods.redeem(accounts[0], voucher, qty).send({from: accounts[0],value: payableAmount})  
       .then((result:any) => {
         console.log("Success! Got result: " + JSON.stringify(result));
@@ -303,7 +310,12 @@ const Home = () => {
        <FormGroup autoComplete="off" onSubmit={onMint}>
         {availableToken>0?
         <p>   
-          Get a unqiue Werewolf at 50 MATIC 
+          {
+            availableVoucher>0?
+            (<p>Get one at <span className="discountStyle"> {mintPrice} MATIC</span> <del>{process.env.REACT_APP_MIN_PRICE?process.env.REACT_APP_MIN_PRICE as any:50 as any} MATIC</del> <br/>Discount Left {availableVoucher}/{voucherSupply}</p>  )
+            :
+            (<p>Get one at {mintPrice} MATIC </p>  )
+          }
         
           <div className="mint-form">
            <Row justify="space-between" align="middle">
