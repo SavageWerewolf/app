@@ -30,10 +30,12 @@ const Links = () => {
           <div>
             
             <img className="profilePic" src="img/stackpack.jpg"/><br/>
-          <Button name="instagram-btn"  onClick={() =>  openNewWindow("https://www.instagram.com/Stackpack/")}>Stack Pack
-          </Button>
+                <Button name="opensea-btn"  onClick={() =>  openNewWindow("https://opensea.io/SavageWerewolf_StackPack?search[sortBy]=PRICE&search[sortAscending]=true")}>Opensea
+                </Button>
           <Row align="middle">
             <div>
+          <Button name="instagram-btn"  onClick={() =>  openNewWindow("https://www.instagram.com/Stackpack/")}>Stack Pack
+          </Button>
                 <Button name="discord-btn" onClick={() =>  openNewWindow("https://discord.gg/vFrTPBBr88")}>Discord
                 </Button>
                 <Button name="twitter-btn" onClick={() =>  openNewWindow("https://twitter.com/sws_werewolf")}>Twitter

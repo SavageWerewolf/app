@@ -443,6 +443,24 @@ const getTimer = () =>{
   return saleCountdown;
 }
 
+const getOpenSea = () =>{
+  return  (
+<div className="mint-container">
+        <div> 
+          Werewolves are listen on Opensea
+          <br/>Visit the link below to view/buy our NFTs
+        </div>
+          <br/>
+       <Button name="opensea-btn" onClick={() => {
+          const newWindow = window.open('https://opensea.io/SavageWerewolf_StackPack?search[sortBy]=PRICE&search[sortAscending]=true', '_blank', 'noopener,noreferrer')
+          if (newWindow) newWindow.opener = null
+       }}>Opensea
+        </Button>
+    </div>
+
+  )
+}
+
 const getMintNFTComponent= () => (
   <div className="mint-container">
          <p>
@@ -483,7 +501,7 @@ const getMintNFTComponent= () => (
         type="right"
         title="Savage Werewolf"
         bold={true}
-        content={getMintNFTComponent()}
+        content={getOpenSea()}
         // button={[
         //   {
         //     "title": "Links",
