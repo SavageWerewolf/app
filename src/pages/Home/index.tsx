@@ -64,7 +64,7 @@ const featuredGallery = (
         <h5>Launch of Savage Werewolf Society
         </h5>
         <p><ul>
-          <li>The Savage Werewolves sale will take place here on our website.</li>
+          <li>The Savage Werewolves sale will take place here on opensea.</li>
           </ul></p>
       </div>
       <div className="content">
@@ -447,7 +447,7 @@ const getOpenSea = () =>{
   return  (
 <div className="mint-container">
         <div> 
-          Werewolves are listen on Opensea
+          Werewolves are listed on Opensea
           <br/>Visit the link below to view/buy our NFTs
         </div>
           <br/>
@@ -547,7 +547,7 @@ const getMintNFTComponent= () => (
       <ContentBlock
         type="left"
         title= "100 Unique Drawings"
-        content= "We will be dropping unqiue drawings of werewolf through Instagram, Twitter or giveaways. So, follow us and keep a look out!"
+        content= "We will be dropping unique drawings of werewolf through Instagram, Twitter or giveaways. So, follow us and keep a look out!"
         section={[]}
         icon="unique_drawings_1.png"
         id="unqiue"
