@@ -106,11 +106,17 @@ interface ProgressbarProps {
   progress :number ,max :number,height:number
 }
 
+//infuraId: process.env.REACT_APP_INFURA_ID // required
 const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      infuraId: process.env.REACT_APP_INFURA_ID // required
+      
+      rpc: {
+        137: "https://rpc-mainnet.maticvigil.com/",
+      },
+      network: "matic",
+    
     }
   }
 };
