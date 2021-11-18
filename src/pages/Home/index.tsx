@@ -15,7 +15,6 @@ import BlockUi from 'react-block-ui';
 import Web3 from "web3";
 import Web3Modal, { PROVIDER_CONTAINER_CLASSNAME } from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import styled from "styled-components";
 import Links from "../../components/Links";
 
 require('dotenv').config();
