@@ -451,7 +451,7 @@ const getOpenSea = () =>{
         </div>
           <br/>
        <Button name="opensea-btn" onClick={() => {
-          const newWindow = window.open('https://opensea.io/SavageWerewolf_StackPack?search[sortBy]=PRICE&search[sortAscending]=true', '_blank', 'noopener,noreferrer')
+          const newWindow = window.open('https://opensea.io/collection/savage-werewolf-society', '_blank', 'noopener,noreferrer')
           if (newWindow) newWindow.opener = null
        }}>Opensea
         </Button>
